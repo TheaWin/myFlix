@@ -10,3 +10,10 @@ Timestamp: Tue Dec 05 2023 23:32:07 GMT+0800 (Singapore Standard Time)
 URL: /favicon.ico
 Timestamp: Tue Dec 05 2023 23:32:07 GMT+0800 (Singapore Standard Time)
 
+::1 - - [07/Dec/2023:13:41:25 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+::1 - - [07/Dec/2023:13:41:31 +0000] "GET /documentation HTTP/1.1" 200 2583 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+::1 - - [07/Dec/2023:13:41:40 +0000] "GET /movies HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+::1 - - [07/Dec/2023:13:42:38 +0000] "GET /movies HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+::1 - - [07/Dec/2023:13:45:37 +0000] "GET /documentation HTTP/1.1" 200 2583 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+::1 - - [07/Dec/2023:13:45:37 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8080/documentation" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+::1 - - [07/Dec/2023:13:45:41 +0000] "GET /documentation.html HTTP/1.1" 200 2583 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
