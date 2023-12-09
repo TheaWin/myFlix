@@ -213,6 +213,21 @@ app.post('/users', (req,res) => {
     }
 });
 
+//Update username info
+app.put('/users/:username', (req,res) => {
+    let user = users.find((user) => {
+        return user.username === req.params.username
+    });
+
+    if (user) {
+        user.name = req.body.name;
+        res.status(200).json(user);
+    } else {
+        res.status(400).send('There is no such user')
+    }
+});
+
+
 //listen for requests
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
