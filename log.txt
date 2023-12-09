@@ -62,3 +62,5 @@ Timestamp: Tue Dec 05 2023 23:32:07 GMT+0800 (Singapore Standard Time)
 ::1 - - [09/Dec/2023:18:37:32 +0000] "DELETE /users/JaneDoe456 HTTP/1.1" 500 1268 "-" "PostmanRuntime/7.35.0"
 ::1 - - [09/Dec/2023:18:40:03 +0000] "DELETE /users/JaneDoe456 HTTP/1.1" 500 1242 "-" "PostmanRuntime/7.35.0"
 ::1 - - [09/Dec/2023:18:40:35 +0000] "DELETE /users/JaneDoe456 HTTP/1.1" 201 23 "-" "PostmanRuntime/7.35.0"
+::1 - - [09/Dec/2023:18:49:39 +0000] "DELETE /users HTTP/1.1" 404 147 "-" "PostmanRuntime/7.35.0"
+::1 - - [09/Dec/2023:18:49:43 +0000] "POST /users HTTP/1.1" 201 84 "-" "PostmanRuntime/7.35.0"
