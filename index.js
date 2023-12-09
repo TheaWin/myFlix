@@ -241,6 +241,20 @@ app.post('/users/:username/:title', (req,res) => {
     }
 });
 
+//Remove an anime from the user's list of favorites
+app.delete('/users/:username/:title', (req,res) => {
+    let user = users.find((user) => {
+        return user.username === req.params.username
+    });
+
+    if (user) {
+        user.favoriteAnime = user.favoriteAnime.filter((obj) => {return obj.title !== req.params.title});
+        res.status(201).send(req.params.title +' has been removed from ' + req.params.username);
+    } else {
+        res.status(400).send('There is no such user')
+    }
+})
+
 
 //listen for requests
 app.listen(8080, () => {
