@@ -255,6 +255,21 @@ app.delete('/users/:username/:title', (req,res) => {
     }
 })
 
+//User deregisteration
+app.delete('/users/:username', (req,res) => {
+    let user = users.find((user) => {
+        return user.username === req.params.username
+    });
+
+    if (user) {
+        users = users.filter((obj) => { 
+            return obj.username !== req.params.username});
+        res.status(201).send(req.params.username + ' was deleted.');
+    } else {
+        res.status(400).send('There is no such user')
+    }
+});
+
 
 //listen for requests
 app.listen(8080, () => {
