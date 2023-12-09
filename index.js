@@ -151,6 +151,12 @@ app.get('/anime', (req, res) => {
     res.json(anime);
   });
 
+//Return data about a single anime by title
+app.get('/anime/:title', (req, res) => {
+    res.json(anime.find((anime) =>
+    {return anime.title === req.params.title}));
+});
+
 //listen for requests
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
