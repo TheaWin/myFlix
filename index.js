@@ -138,6 +138,23 @@ let anime = [
     }
 ];
 
+let users = [
+    {
+        id: 1,
+        name: 'John Doe',
+        username: 'JohnDoe123',
+        email:'john.doe@example.com',
+        favoriteAnime: []
+    },
+    {
+        id: 2,
+        name: 'Jane Doe',
+        username: 'JaneDoe456',
+        email:'jane.doe@example.com',
+        favoriteAnime: ['Violet Evergarden']
+    }
+];
+
 //setup app routing
 app.use(express.static('public'));
 
@@ -172,7 +189,7 @@ app.get('/anime/genre/:genreName', (req, res) => {
 });
 
 //Return data about director by name
-app.get('/anime/directors/:name', (req,res) => {
+app.get('/anime/director/:name', (req,res) => {
     let directorName = req.params.name;
     let director = anime.find( anime => anime.director.name === directorName).director;
 
@@ -180,6 +197,19 @@ app.get('/anime/directors/:name', (req,res) => {
         res.status(200).json(director);
     } else {
         res.status(400).send('There is no such director.');
+    }
+});
+
+//New users registeration
+app.post('/users', (req,res) => {
+    let newUser = req.body;
+
+    if(!newUser.name) {
+        res.status(400).send('Missing name in request body');
+    } else {
+        newUser.id = uuid.v4();
+        users.push(newUser);
+        res.status(201).send(newUser);
     }
 });
 
