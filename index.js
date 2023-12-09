@@ -143,21 +143,12 @@ app.use(express.static('public'));
 
 //GET request
 app.get('/', (req, res) => {
-    res.send('Welcome to the collection of my favorite Animes.');
+    res.send('Welcome to Anime Eiga(アニメ 映画).');
 });
 
-app.get('/movies', (req, res) => {
-    res.json(topAnime);
-  });
-
-app.get('/documentation', (req, res) => {                  
-    res.sendFile('public/documentation.html', { root: __dirname });
-});
-  
-//error handling set up
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
+//Return a list of ALL anime to the user
+app.get('/anime', (req, res) => {
+    res.json(anime);
   });
 
 //listen for requests
