@@ -171,6 +171,18 @@ app.get('/anime/genre/:genreName', (req, res) => {
     }
 });
 
+//Return data about director by name
+app.get('/anime/directors/:name', (req,res) => {
+    let directorName = req.params.name;
+    let director = anime.find( anime => anime.director.name === directorName).director;
+
+    if (director) {
+        res.status(200).json(director);
+    } else {
+        res.status(400).send('There is no such director.');
+    }
+});
+
 //listen for requests
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
