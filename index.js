@@ -227,6 +227,20 @@ app.put('/users/:username', (req,res) => {
     }
 });
 
+//Add an anime to the user's list of favorites
+app.post('/users/:username/:title', (req,res) => {
+    let user = users.find((user) => {
+        return user.username === req.params.username
+    });
+
+    if (user) {
+        user.favoriteAnime.push(req.params.title);
+        res.status(200).send(req.params.title +' has been added to ' + req.params.username);
+    } else {
+        res.status(400).send('There is no such user')
+    }
+});
+
 
 //listen for requests
 app.listen(8080, () => {
