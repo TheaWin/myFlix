@@ -157,6 +157,20 @@ app.get('/anime/:title', (req, res) => {
     {return anime.title === req.params.title}));
 });
 
+// Return data of a list of anime by genre
+app.get('/anime/genre/:genreName', (req, res) => {
+    
+    const { genreName } = req.params;
+
+    let filteredAnime = anime.filter((anime) => anime.genre.includes(genreName));
+
+    if (filteredAnime.length > 0) {
+        res.json(filteredAnime);
+    } else {
+        res.status(404).send('No anime found for the specified genre.');
+    }
+});
+
 //listen for requests
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
