@@ -85,13 +85,18 @@
                 <td>GET</td>
                 <td>None</td>
                 <td>A JSON object holding data about the requested anime. Example: <br />
-                    {'title': 'My Neighbor Totoro', <br />
-                    'imageUrl': 'https://example.png', <br />
-                    'director': 'Hayao Miyazaki', <br />
-                    'releaseYear': '1988', <br />
-                    'genre': 'comedy', <br />
+                    {'name': 'My Neighbor Totoro', <br />
                     'description': 'When two girls move to the country to be near their ailing mother, they have
-                    adventures with the wondrous forest spirits who live nearby.'
+                    adventures with the wondrous forest spirits who live nearby.', <br/>
+                    'genre': 'comedy', <br /> 
+                    'director': {
+                        'name': 'Hayao Miyazaki',
+                        'bio': 'lorem ipsum',
+                        'birthYear': 1890,
+                        'deathYear': null}, <br />                   
+                    'releaseYear': '1988', <br />
+                    'imageUrl': 'https://example.png', <br />
+                    'featured': true <br/>
                     }
                 </td>
             </tr>
@@ -130,6 +135,7 @@
                     'name': 'John Doe', <br />
                     'email': 'john.doe@example.com', <br />
                     'password': 'securedpassword', <br />
+                    'birthday': '12 Dec 2000'<br/>
                     }
                 </td>
                 <td>A JSON object holding data about the user that was added, including an ID: <br />
@@ -146,7 +152,7 @@
                 <td>/users/[username]</td>
                 <td>PUT</td>
                 <td>A JSON object holding data about the user's username. Example: <br/>
-                    {'newUsername': 'new_username123'}</td>
+                    {'username': 'username123'}</td>
                 <td>A JSON object holding data about the user with an updated username. Example: <br/>
                     {'id': '1234', <br />
                     'username': 'NewJohnDoe', <br />
@@ -158,16 +164,21 @@
             </tr>
             <tr>
                 <td>Add an anime to the user's list of favorites</td>
-                <td>/users/[username]/[title]</td>
+                <td>/users/[username]/[name]</td>
                 <td>POST</td>
                 <td>A JSON object holding data about the chosen anime to add. Example: <br/>
-                    {'title': 'My Neighbor Totoro', <br />
-                    'imageUrl': 'https://example.png', <br />
-                    'director': 'Hayao Miyazaki', <br />
-                    'releaseYear': '1988', <br />
-                    'genre': 'comedy', <br />
+                    {'name': 'My Neighbor Totoro', <br />
                     'description': 'When two girls move to the country to be near their ailing mother, they have
-                    adventures with the wondrous forest spirits who live nearby.'
+                    adventures with the wondrous forest spirits who live nearby.', <br/>
+                    'genre': 'comedy', <br /> 
+                    'director': {
+                        'name': 'Hayao Miyazaki',
+                        'bio': 'lorem ipsum',
+                        'birthYear': 1890,
+                        'deathYear': null}, <br />                   
+                    'releaseYear': '1988', <br />
+                    'imageUrl': 'https://example.png', <br />
+                    'featured': true <br/>
                     }
                 </td>
                 <td>A text message indicating whether the anime has been successfully added</td>
