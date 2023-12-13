@@ -3,205 +3,29 @@ const express = require('express'),
     fs = require('fs'),
     path = require ('path'),
     uuid = require('uuid'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    mongoose = require('mongoose'),
+    Models = require('./models.js');
+
+const Anime = Models.Anime;
+const Users = Models.User;
+
+//allows Mongoose to connect to the database
+mongoose.connect('mongodb://localhost:27017/anime', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
-// create a write stream (in append mode)
-// a ‘log.txt’ file is created in root directory
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
-
-// setup the logger
-app.use(morgan('combined', {stream: accessLogStream}));
-
-app.use(bodyParser.json());
-
-let anime = [
-    {
-        title: 'My Neighbor Totoro',
-        director: {
-            name: 'Hayao Miyazaki',
-            birthYear: '1941',
-            deathyear: 'present',
-            bio: 'Hayao Miyazaki is a highly acclaimed Japanese animator, director, and co-founder of Studio Ghibli. Renowned for his imaginative storytelling and artistic brilliance, Miyazaki has created some of the most beloved animated films worldwide. His iconic works include \'My Neighbor Totoro,\' \'Spirited Away,\' and \'Princess Mononoke.\' Miyazaki\'s films often explore themes of environmentalism, pacifism, and the wonder of childhood. With a career spanning decades, he continues to be a guiding force in the animation industry, captivating audiences of all ages.'
-        },
-        releaseYear: '1988',
-        genre: ['action','drama','comedy', 'adventure', 'documentary', 'fantasy', 'thriller', 'supernatural'],
-        description: 'While spending a summer in the Japanese countryside with their father, two younger sisters befriend mystical creatures who live in the nearby forest.'
-    },
-    {
-        title: 'Grave of the Fireflies',
-        director: {
-            name: 'Isao Takahata',
-            birthYear: '1935',
-            deathYear: '2018',
-            bio: 'Isao Takahata was a highly influential Japanese film director, producer, and co-founder of Studio Ghibli. Renowned for his distinct approach to storytelling and animation, Takahata played a crucial role in shaping the landscape of animated cinema. He directed acclaimed films such as \'Grave of the Fireflies,\' \'Only Yesterday,\' and \'The Tale of the Princess Kaguya.\' Takahata\'s works often explored profound human emotions and societal themes. His contributions to the world of animation continue to be celebrated, leaving a lasting impact on the industry. Isao Takahata passed away on April 5, 2018, but his legacy endures through his exceptional body of work.'
-        },
-        releaseYear: '1988',
-        genre: ['war','horror', 'history', 'action', 'melodrama', 'anit-war', 'tragedy', 'drama'],
-        description: 'A young boy and his little sister struggle to survive in Japan during World War II.'
-    },
-    {
-        title: 'Kiki\'s Delivery Service',
-        director: {
-            name: 'Hayao Miyazaki',
-            birthYear: '1941',
-            deathyear: 'present',
-            bio: 'Hayao Miyazaki is a highly acclaimed Japanese animator, director, and co-founder of Studio Ghibli. Renowned for his imaginative storytelling and artistic brilliance, Miyazaki has created some of the most beloved animated films worldwide. His iconic works include \'My Neighbor Totoro,\' \'Spirited Away,\' and \'Princess Mononoke.\' Miyazaki\'s films often explore themes of environmentalism, pacifism, and the wonder of childhood. With a career spanning decades, he continues to be a guiding force in the animation industry, captivating audiences of all ages.'
-        },
-        releaseYear: '1989',
-        genre: ['horror', 'action', 'comedy', 'fanatasy', 'adventure', 'drama', 'teen'],
-        description: 'In this animated adventure, a young witch moves away from her family to practice her craft, but she finds that making new friends is difficult.'
-    },
-    {
-        title: 'Spirited Away',
-        director: {
-            name: 'Hayao Miyazaki',
-            birthYear: '1941',
-            deathyear: 'present',
-            bio: 'Hayao Miyazaki is a highly acclaimed Japanese animator, director, and co-founder of Studio Ghibli. Renowned for his imaginative storytelling and artistic brilliance, Miyazaki has created some of the most beloved animated films worldwide. His iconic works include \'My Neighbor Totoro,\' \'Spirited Away,\' and \'Princess Mononoke.\' Miyazaki\'s films often explore themes of environmentalism, pacifism, and the wonder of childhood. With a career spanning decades, he continues to be a guiding force in the animation industry, captivating audiences of all ages.'
-        },
-        releaseYear: '2001',
-        genre: ['action', 'drama', 'war', 'fantasy', 'adventure', 'teen', 'mystery', 'supernatural'],
-        description: 'Chihiro wanders into a magical world where a witch rules -- and those who disobey her are turned into animals.'
-    },
-    {
-        title: 'Howl\'s Moving Castle',
-        director: {
-            name: 'Hayao Miyazaki',
-            birthYear: '1941',
-            deathyear: 'present',
-            bio: 'Hayao Miyazaki is a highly acclaimed Japanese animator, director, and co-founder of Studio Ghibli. Renowned for his imaginative storytelling and artistic brilliance, Miyazaki has created some of the most beloved animated films worldwide. His iconic works include \'My Neighbor Totoro,\' \'Spirited Away,\' and \'Princess Mononoke.\' Miyazaki\'s films often explore themes of environmentalism, pacifism, and the wonder of childhood. With a career spanning decades, he continues to be a guiding force in the animation industry, captivating audiences of all ages.'
-        },
-        releaseYear: '2004',
-        genre: ['romance', 'action', 'comedy', 'war', 'fantasy', 'drama', 'adventure', 'science fiction'],
-        description: 'Teenager Sophie works in her late father\'s hat shop in a humdrum town, but things get interesting when she\'s transformed into an elderly woman.'
-    },
-    {
-        title: 'Tales from Earthsea',
-        director: {
-            name: 'Goro Miyazaki',
-            birthYear: '1967',
-            deathYear: 'present',
-            bio: 'Goro Miyazaki is a Japanese director and landscaper, known for his contributions to animated films. He is the son of the renowned animator Hayao Miyazaki. Goro Miyazaki made his directorial debut with the Studio Ghibli film \'Tales from Earthsea\' in 2006. While initially facing challenges, he later directed \'From Up on Poppy Hill\' in 2011, earning acclaim for his storytelling and direction. Goro Miyazaki has continued to make a mark in the animation industry, carrying forward the legacy of Studio Ghibli. His unique perspective and dedication to storytelling contribute to the rich tapestry of animated cinema.'
-        },
-        releaseYear: '2006',
-        genre: ['action', 'drama', 'fantasy', 'adventure'],
-        description: 'As their world decays, an Archmage guides a troubled prince with a dark side on a journey to find the source of evil and save the woman they love.'
-    },
-    {
-        title: 'Castle in the Sky',
-        director: {
-            name: 'Hayao Miyazaki',
-            birthYear: '1941',
-            deathyear: 'present',
-            bio: 'Hayao Miyazaki is a highly acclaimed Japanese animator, director, and co-founder of Studio Ghibli. Renowned for his imaginative storytelling and artistic brilliance, Miyazaki has created some of the most beloved animated films worldwide. His iconic works include \'My Neighbor Totoro,\' \'Spirited Away,\' and \'Princess Mononoke.\' Miyazaki\'s films often explore themes of environmentalism, pacifism, and the wonder of childhood. With a career spanning decades, he continues to be a guiding force in the animation industry, captivating audiences of all ages.'
-        },
-        releaseYear: '1986',
-        genre: ['romance', 'horror', 'action', 'comedy', 'steampunk', 'fantasy', 'science fiction', 'adventure', 'drama', 'musical', 'supernatural'],
-        description: 'A young miner and a mysterious girl search for a long-lost island that\'s rumoured to hold great riches.'
-    },
-    {
-        title: 'Your Name',
-        director: {
-            name: 'Makoto Shinkai',
-            birthYear: '1973',
-            deathYear: 'present',
-            bio: 'Makoto Shinkai is a highly acclaimed Japanese animator, director, and writer known for his visually stunning and emotionally resonant works. Shinkai gained widespread recognition with his breakthrough film \'Your Name\' (Kimi no Na wa) in 2016, which became a global phenomenon. His films often explore themes of love, distance, and the beauty of everyday life. Before venturing into feature films, Shinkai gained attention for his independent short films. His meticulous attention to detail and storytelling prowess have solidified his place as a prominent figure in the world of anime and animation.'
-        },
-        releaseYear: '2016',
-        genre: ['romance', 'aciton', 'comedy', 'drama', 'disaster','fantasy','supernatural'],
-        description: 'A bored girl in the countryside starts sporadically waking up in the body of a city boy who\'s living the exciting life she\'d always dreamed of.'
-    },
-    {
-        title: 'Belle',
-        director: {
-            name: 'Mamoru Hosoda',
-            birthYear: '1967',
-            deathYear: 'present',
-            bio: 'Mamoru Hosoda, born on September 19, 1967, is a celebrated Japanese film director and animator known for his exceptional contributions to the world of anime. Hosoda gained prominence for his work with Studio Ghibli, where he directed \'The Girl Who Leapt Through Time.\' He later founded Studio Chizu, producing critically acclaimed films such as \'Summer Wars,\' \'Wolf Children,\' and \'Mirai.\' Hosoda\'s storytelling skill and ability to capture the essence of human emotions have made him a respected figure in the animation industry, with his works receiving international acclaim.'
-        },
-        releaseYear: '2021',
-        genre: ['action','science fiction', 'adventure', 'suspense', 'drama', 'thriller','musical', 'science fantasy'],
-        description: 'In the virtual world of U, an adored songstress and the despised Dragon form a bond, sparking an adventure that starts to reach into their real lives.'
-    },
-    {
-        title: 'Violet Evergarden',
-        director: {
-            name: 'Taichi Ishidate',
-            birthYear: '1979',
-            deathYear: 'present',
-            bio: 'Taichi Ishidate is a Japanese animator and director of animated series and films. He works for the Kyoto Animation studio , directed the animated series Kyōkai no Kanata and Violet Evergarden and their films. associated, he has also worked on other studio works in other capacities as episode director, unit director, as a Story-board artist and also as an animator.'
-        },
-        releaseYear: '2020',
-        genre: ['action', 'romance', 'steampunk', 'science fiction', 'fantasy', 'drama'],
-        description: 'As the world moves on from the war and technological advances bring changes to her life, Violet Still hopes to see her lost commanding officer again.'
-    }
-];
-
-let users = [
-    {
-        id: 1,
-        name: 'John Doe',
-        username: 'JohnDoe123',
-        email:'john.doe@example.com',
-        favoriteAnime: []
-    },
-    {
-        id: 2,
-        name: 'Jane Doe',
-        username: 'JaneDoe456',
-        email:'jane.doe@example.com',
-        favoriteAnime: ['Violet Evergarden']
-    }
-];
-
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 //setup app routing
 app.use(express.static('public'));
 
-//GET request
-app.get('/', (req, res) => {
-    res.send('Welcome to Anime Eiga(アニメ 映画).');
-});
+// create a write stream (in append mode)
+// a ‘log.txt’ file is created in root directory
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
+app.use(morgan('combined', {stream: accessLogStream}));
 
-//Return a list of ALL anime to the user
-app.get('/anime', (req, res) => {
-    res.json(anime);
-  });
-
-//Return data about a single anime by title
-app.get('/anime/:title', (req, res) => {
-    res.json(anime.find((anime) =>
-    {return anime.title === req.params.title}));
-});
-
-// Return data of a list of anime by genre
-app.get('/anime/genre/:genreName', (req, res) => {
-    
-    const { genreName } = req.params;
-
-    let filteredAnime = anime.filter((anime) => anime.genre.includes(genreName));
-
-    if (filteredAnime.length > 0) {
-        res.json(filteredAnime);
-    } else {
-        res.status(404).send('No anime found for the specified genre.');
-    }
-});
-
-//Return data about director by name
-app.get('/anime/director/:name', (req,res) => {
-    let directorName = req.params.name;
-    let director = anime.find( anime => anime.director.name === directorName).director;
-
-    if (director) {
-        res.status(200).json(director);
-    } else {
-        res.status(400).send('There is no such director.');
-    }
-});
-
-//New users registeration
-app.post('/users', (req,res) => {
+//New users registration - before database
+/* app.post('/users', (req,res) => {
     let newUser = req.body;
 
     if(!newUser.name) {
@@ -211,10 +35,49 @@ app.post('/users', (req,res) => {
         users.push(newUser);
         res.status(201).send(newUser);
     }
+}); */
+//New users registration - after database
+app.post('/users', async (req,res) => {
+    await Users.findOne({ username: req.body.username })
+        .then((user) => {
+            if (user) {
+                return res.status(400).send(req.body.username + 'already exists');
+            } else {
+                Users
+                    .create({
+                        username: req.body.username,
+                        name: req.body.name,
+                        password: req.body.password,
+                        email: req.body.email,
+                        birthday: req.body.birthday
+                    })
+                    .then ((user) => {res.status(201).json(user)})
+                .catch ((error) => {
+                    console.error(error);
+                    res.status(500).send('Error: ' +error);
+                })
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' +error);
+        })
+    });
+
+//Get a user by username
+app.get('/users/:username', async (req, res) => {
+    await Users.findOne ({ username: req.params.username })
+    .then ((user) => {
+        res.json(user);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' +err);
+    });
 });
 
-//Update username info
-app.put('/users/:username', (req,res) => {
+//Update username info - before database
+/* app.put('/users/:username', (req,res) => {
     let user = users.find((user) => {
         return user.username === req.params.username
     });
@@ -225,10 +88,31 @@ app.put('/users/:username', (req,res) => {
     } else {
         res.status(400).send('There is no such user')
     }
+}); */
+//Update a user's info, by username - after database
+app.put('/users/:username', async (req,res) => {
+    await Users.findOneAndUpdate({ username: req.params.username}, 
+        {$set: 
+        {
+            username: req.body.username,
+            name: req.body.name,
+            password: req.body.password,
+            email: req.body.email,
+            birthday: req.body.birthday
+        }
+    },
+    { new: true} ) //This line makes sure that the updated document is returned
+    .then ((updatedUser) => {
+        res.json(updatedUser);
+    })
+    .catch ((err) => {
+        console.error(err); 
+        res.status(500).send('Error: ' + err);
+    })
 });
 
-//Add an anime to the user's list of favorites
-app.post('/users/:username/:title', (req,res) => {
+//Add an anime to the user's list of favorites - before database
+/* app.post('/users/:username/:title', (req,res) => {
     let user = users.find((user) => {
         return user.username === req.params.username
     });
@@ -239,9 +123,27 @@ app.post('/users/:username/:title', (req,res) => {
     } else {
         res.status(400).send('There is no such user')
     }
+}); */
+//Add an anime to a user's list of favorites
+app.post('/users/:username/:animeID', async(req,res) => {
+    await Users.findOneAndUpdate({username: req.params.username}, {
+        $push: {favoriteMovies: req.params.animeID}
+    },
+    {new: true})
+    .then ((updatedUser) => {
+        if (!updatedUser) {
+            return res.status(404).send("Error: User doesn't exist");
+        } else {
+            res.json(updatedUser);
+        }
+    })
+    .catch ((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
 });
 
-//Remove an anime from the user's list of favorites
+/* //Remove an anime from the user's list of favorites - before database
 app.delete('/users/:username/:title', (req,res) => {
     let user = users.find((user) => {
         return user.username === req.params.username
@@ -253,10 +155,28 @@ app.delete('/users/:username/:title', (req,res) => {
     } else {
         res.status(400).send('There is no such user')
     }
-})
+}) */
+//Delete an anime from the user's list of favorites 
+app.delete('/users/:username/:animeID', async(req,res) => {
+    await Users.findOneAndUpdate({username: req.params.username}, {
+        $pull: {favoriteMovies: req.params.animeID}
+    },
+    {new: true})
+    .then ((updatedUser) => {
+        if (!updatedUser) {
+            return res.status(404).send("Error: User doesn't exist");
+        } else {
+            res.json(updatedUser);
+        }
+    })
+    .catch ((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
 
-//User deregisteration
-app.delete('/users/:username', (req,res) => {
+//User deregisteration -before database
+/* app.delete('/users/:username', (req,res) => {
     let user = users.find((user) => {
         return user.username === req.params.username
     });
@@ -268,16 +188,77 @@ app.delete('/users/:username', (req,res) => {
     } else {
         res.status(400).send('There is no such user')
     }
+}); */
+//Delete a user by username
+app.delete('/users/:username', async (req,res) => {
+    await Users.findOneAndDelete({ username: req.params.username})
+    .then ((user) => {
+        if (!user) {
+            res.status(400).send(req.params.username + ' was not found');
+        } else {
+            res.status(200).send(req.params.username + ' was deleted.');
+        }
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
 });
 
+//GET request
+app.get('/', (req, res) => {
+    res.send('Welcome to Anime Eiga(アニメ 映画).');
+});
+
+//Return a list of ALL anime to the user
+app.get('/anime', async (req, res) => {
+    await Anime.find()
+    .then ((anime) => {
+        res.status(201).json(anime);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+  });
+
+//Return data about a single anime by title
+app.get('/anime/:name', async (req, res) => {
+   await Anime.findOne({Name: req.params.name})
+   .then((anime) => {
+    res.json(anime);
+   })
+   .catch((err)=> {
+    console.error(err);
+    res.status(500).send("Error: "+err);
+   });
+});
+
+// Return data of a list of anime by genre
+app.get('/anime/genre/:name', async (req, res) => {
+    await Anime.findOne({"Genre.Name": req.params.name})
+    .then((anime) => {
+        res.json(anime);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
+
+//Return data about director by name
+app.get('/anime/director/:name', async (req,res) => {
+    await Anime.findOne({"Director.Name": req.params.name})
+    .then((anime) => {
+        res.json(anime);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " +err);
+    });
+});
 
 //listen for requests
 app.listen(8080, () => {
     console.log('Your app is listening on port 8080.');
   });
-
-
-
-
-// listen for requests
-
