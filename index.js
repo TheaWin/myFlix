@@ -24,18 +24,6 @@ app.use(express.static('public'));
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 app.use(morgan('combined', {stream: accessLogStream}));
 
-//New users registration - before database
-/* app.post('/users', (req,res) => {
-    let newUser = req.body;
-
-    if(!newUser.name) {
-        res.status(400).send('Missing name in request body');
-    } else {
-        newUser.id = uuid.v4();
-        users.push(newUser);
-        res.status(201).send(newUser);
-    }
-}); */
 //New users registration - after database
 app.post('/users', async (req,res) => {
     await Users.findOne({ username: req.body.username })
@@ -76,19 +64,6 @@ app.get('/users/:username', async (req, res) => {
     });
 });
 
-//Update username info - before database
-/* app.put('/users/:username', (req,res) => {
-    let user = users.find((user) => {
-        return user.username === req.params.username
-    });
-
-    if (user) {
-        user.name = req.body.name;
-        res.status(200).json(user);
-    } else {
-        res.status(400).send('There is no such user')
-    }
-}); */
 //Update a user's info, by username - after database
 app.put('/users/:username', async (req,res) => {
     await Users.findOneAndUpdate({ username: req.params.username}, 
@@ -111,19 +86,6 @@ app.put('/users/:username', async (req,res) => {
     })
 });
 
-//Add an anime to the user's list of favorites - before database
-/* app.post('/users/:username/:title', (req,res) => {
-    let user = users.find((user) => {
-        return user.username === req.params.username
-    });
-
-    if (user) {
-        user.favoriteAnime.push(req.params.title);
-        res.status(200).send(req.params.title +' has been added to ' + req.params.username);
-    } else {
-        res.status(400).send('There is no such user')
-    }
-}); */
 //Add an anime to a user's list of favorites
 app.post('/users/:username/:animeID', async(req,res) => {
     await Users.findOneAndUpdate({username: req.params.username}, {
@@ -143,19 +105,6 @@ app.post('/users/:username/:animeID', async(req,res) => {
     });
 });
 
-/* //Remove an anime from the user's list of favorites - before database
-app.delete('/users/:username/:title', (req,res) => {
-    let user = users.find((user) => {
-        return user.username === req.params.username
-    });
-
-    if (user) {
-        user.favoriteAnime = user.favoriteAnime.filter((obj) => {return obj.title !== req.params.title});
-        res.status(201).send(req.params.title +' has been removed from ' + req.params.username);
-    } else {
-        res.status(400).send('There is no such user')
-    }
-}) */
 //Delete an anime from the user's list of favorites 
 app.delete('/users/:username/:animeID', async(req,res) => {
     await Users.findOneAndUpdate({username: req.params.username}, {
@@ -175,20 +124,6 @@ app.delete('/users/:username/:animeID', async(req,res) => {
     });
 });
 
-//User deregisteration -before database
-/* app.delete('/users/:username', (req,res) => {
-    let user = users.find((user) => {
-        return user.username === req.params.username
-    });
-
-    if (user) {
-        users = users.filter((obj) => { 
-            return obj.username !== req.params.username});
-        res.status(201).send(req.params.username + ' was deleted.');
-    } else {
-        res.status(400).send('There is no such user')
-    }
-}); */
 //Delete a user by username
 app.delete('/users/:username', async (req,res) => {
     await Users.findOneAndDelete({ username: req.params.username})
