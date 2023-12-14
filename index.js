@@ -32,7 +32,7 @@ a ‘log.txt’ file is created in root directory */
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 app.use(morgan('combined', {stream: accessLogStream}));
 
-app.post('/users', passport.authenticate('jwt', {session: false}), async (req,res) => {
+app.post('/users', async (req,res) => {
     await Users.findOne({ username: req.body.username })
         .then((user) => {
             if (user) {
@@ -73,6 +73,11 @@ app.get('/users/:username', passport.authenticate('jwt', {session: false}), asyn
 
 //Update a user's info, by username - after database
 app.put('/users/:username', passport.authenticate('jwt', {session: false}), async (req,res) => {
+    //CONDITION TO CHECK USER AUTHORIZATION
+    if(req.user.username !== req.params.username) {
+        return res.status(400).send('Permission denied');
+    }
+
     await Users.findOneAndUpdate({ username: req.params.username}, 
         {$set: 
         {
@@ -95,6 +100,11 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}), asyn
 
 //Add an anime to a user's list of favorites
 app.post('/users/:username/:animeID', passport.authenticate('jwt', {session: false}), async(req,res) => {
+    //CONDITION TO CHECK USER AUTHORIZATION
+    if(req.user.username !== req.params.username) {
+        return res.status(400).send('Permission denied');
+    }
+
     await Users.findOneAndUpdate({username: req.params.username}, {
         $push: {favoriteMovies: req.params.animeID}
     },
@@ -114,6 +124,11 @@ app.post('/users/:username/:animeID', passport.authenticate('jwt', {session: fal
 
 //Delete an anime from the user's list of favorites 
 app.delete('/users/:username/:animeID', passport.authenticate('jwt', {session: false}), async(req,res) => {
+    //CONDITION TO CHECK USER AUTHORIZATION
+    if(req.user.username !== req.params.username) {
+        return res.status(400).send('Permission denied');
+    }
+
     await Users.findOneAndUpdate({username: req.params.username}, {
         $pull: {favoriteMovies: req.params.animeID}
     },
@@ -133,6 +148,11 @@ app.delete('/users/:username/:animeID', passport.authenticate('jwt', {session: f
 
 //Delete a user by username
 app.delete('/users/:username', passport.authenticate('jwt', {session: false}), async (req,res) => {
+    //CONDITION TO CHECK USER AUTHORIZATION
+    if(req.user.username !== req.params.username) {
+        return res.status(400).send('Permission denied');
+    }
+    
     await Users.findOneAndDelete({ username: req.params.username})
     .then ((user) => {
         if (!user) {
