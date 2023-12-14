@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let animeSchema = mongoose.Schema({
+const animeSchema = mongoose.Schema({
     Name: {type: String, required: true},
     Description: {type: String, required: true},
     Genre: {
@@ -18,7 +18,7 @@ let animeSchema = mongoose.Schema({
     Featured: Boolean
 });
 
-let userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     username: {type: String, required:true},
     name: {type: String, required: true},
     password: {type: String, required: true},
@@ -27,8 +27,8 @@ let userSchema = mongoose.Schema({
     favoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref: 'Anime'}]
 });
 
-let Anime = mongoose.model('Anime',animeSchema);
-let User = mongoose.model('User', userSchema);
+const Anime = mongoose.model('Anime',animeSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports.Anime = Anime;
 module.exports.User = User;
