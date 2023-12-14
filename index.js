@@ -16,9 +16,7 @@ mongoose.connect('mongodb://localhost:27017/anime', {useNewUrlParser: true, useU
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-//setup app routing
-app.use(express.static('public'));
-
+app.use(express.static('public'));//setup app routing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -29,14 +27,12 @@ let auth = require('./auth') (app);
 const passport = require('passport');
 require('./passport');
 
-
-// create a write stream (in append mode)
-// a ‘log.txt’ file is created in root directory
+/* create a write stream (in append mode)
+a ‘log.txt’ file is created in root directory */
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 app.use(morgan('combined', {stream: accessLogStream}));
 
-//New users registration - after database
-app.post('/users', async (req,res) => {
+app.post('/users', passport.authenticate('jwt', {session: false}), async (req,res) => {
     await Users.findOne({ username: req.body.username })
         .then((user) => {
             if (user) {
@@ -64,7 +60,7 @@ app.post('/users', async (req,res) => {
     });
 
 //Get a user by username
-app.get('/users/:username', async (req, res) => {
+app.get('/users/:username', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.findOne ({ username: req.params.username })
     .then ((user) => {
         res.json(user);
@@ -76,7 +72,7 @@ app.get('/users/:username', async (req, res) => {
 });
 
 //Update a user's info, by username - after database
-app.put('/users/:username', async (req,res) => {
+app.put('/users/:username', passport.authenticate('jwt', {session: false}), async (req,res) => {
     await Users.findOneAndUpdate({ username: req.params.username}, 
         {$set: 
         {
@@ -98,7 +94,7 @@ app.put('/users/:username', async (req,res) => {
 });
 
 //Add an anime to a user's list of favorites
-app.post('/users/:username/:animeID', async(req,res) => {
+app.post('/users/:username/:animeID', passport.authenticate('jwt', {session: false}), async(req,res) => {
     await Users.findOneAndUpdate({username: req.params.username}, {
         $push: {favoriteMovies: req.params.animeID}
     },
@@ -117,7 +113,7 @@ app.post('/users/:username/:animeID', async(req,res) => {
 });
 
 //Delete an anime from the user's list of favorites 
-app.delete('/users/:username/:animeID', async(req,res) => {
+app.delete('/users/:username/:animeID', passport.authenticate('jwt', {session: false}), async(req,res) => {
     await Users.findOneAndUpdate({username: req.params.username}, {
         $pull: {favoriteMovies: req.params.animeID}
     },
@@ -136,7 +132,7 @@ app.delete('/users/:username/:animeID', async(req,res) => {
 });
 
 //Delete a user by username
-app.delete('/users/:username', async (req,res) => {
+app.delete('/users/:username', passport.authenticate('jwt', {session: false}), async (req,res) => {
     await Users.findOneAndDelete({ username: req.params.username})
     .then ((user) => {
         if (!user) {
@@ -157,7 +153,7 @@ app.get('/', (req, res) => {
 });
 
 //Return a list of ALL anime to the user
-app.get('/anime', async (req, res) => {
+app.get('/anime', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Anime.find()
     .then ((anime) => {
         res.status(201).json(anime);
@@ -169,7 +165,7 @@ app.get('/anime', async (req, res) => {
   });
 
 //Return data about a single anime by title
-app.get('/anime/:name', async (req, res) => {
+app.get('/anime/:name', passport.authenticate('jwt', {session: false}), async (req, res) => {
    await Anime.findOne({Name: req.params.name})
    .then((anime) => {
     res.json(anime);
@@ -181,7 +177,7 @@ app.get('/anime/:name', async (req, res) => {
 });
 
 // Return data of a list of anime by genre
-app.get('/anime/genre/:name', async (req, res) => {
+app.get('/anime/genre/:name', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Anime.findOne({"Genre.Name": req.params.name})
     .then((anime) => {
         res.json(anime);
@@ -193,7 +189,7 @@ app.get('/anime/genre/:name', async (req, res) => {
 });
 
 //Return data about director by name
-app.get('/anime/director/:name', async (req,res) => {
+app.get('/anime/director/:name', passport.authenticate('jwt', {session: false}), async (req,res) => {
     await Anime.findOne({"Director.Name": req.params.name})
     .then((anime) => {
         res.json(anime);
