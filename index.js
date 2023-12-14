@@ -19,6 +19,17 @@ app.use(express.urlencoded({extended: true}));
 //setup app routing
 app.use(express.static('public'));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//import auth.js
+let auth = require('./auth') (app);
+
+//import passport.js
+const passport = require('passport');
+require('./passport');
+
+
 // create a write stream (in append mode)
 // a ‘log.txt’ file is created in root directory
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
