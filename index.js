@@ -10,10 +10,32 @@ const express = require('express'),
 const Anime = Models.Anime;
 const Users = Models.User;
 
+//Server-side validation for myFlix
+const {check,validationResult} = require('express-validator');
+
 //allows Mongoose to connect to the database
 mongoose.connect('mongodb://localhost:27017/anime', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
+const cors = require('cors');
+
+//allow requests from all origins
+app.use(cors());
+
+//allow only specified origins to be given access
+/* let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+app.use (cors({
+    origin: (origin,callback) => {
+        if(!origin) return callback (null,true);
+        if(allowedOrigins.indexOf(origin) === -1) { //if a specific origin isn't found on the list of allowed origins
+            let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+            return callback(new Error(message ), false);
+        }
+        return callback(null,true);
+    }
+})); */
+
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));//setup app routing
@@ -32,7 +54,24 @@ a ‘log.txt’ file is created in root directory */
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'})
 app.use(morgan('combined', {stream: accessLogStream}));
 
-app.post('/users', async (req,res) => {
+app.post('/users', 
+    //Validation logic here for request
+    [
+        check('username', 'Username is required').isLength({min:5}), //min value of 5 chars are only allowed
+        check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+        check('password', 'Password is required').not().isEmpty(),//using a chain of methods `.not().isEmpty()` meanis "opposite of isEmpty" in plain english "is not empty"
+        check('email', 'Email does not appear to be valid').isEmail()
+    ],
+    async (req,res) => {
+
+        //check the validation object for errors
+        let errors = validationResult(req);
+
+        if(!errors.isEmpty()) {
+            return res.status(422).json({errors:errors.array()});
+        }
+        
+    let hashedPassword = Users.hashPassword(req.body.password);
     await Users.findOne({ username: req.body.username })
         .then((user) => {
             if (user) {
@@ -42,7 +81,7 @@ app.post('/users', async (req,res) => {
                     .create({
                         username: req.body.username,
                         name: req.body.name,
-                        password: req.body.password,
+                        password: hashedPassword,
                         email: req.body.email,
                         birthday: req.body.birthday
                     })
