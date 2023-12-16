@@ -70,7 +70,7 @@ app.post('/users',
         if(!errors.isEmpty()) {
             return res.status(422).json({errors:errors.array()});
         }
-        
+
     let hashedPassword = Users.hashPassword(req.body.password);
     await Users.findOne({ username: req.body.username })
         .then((user) => {
@@ -259,7 +259,7 @@ app.get('/anime/director/:name', passport.authenticate('jwt', {session: false}),
     });
 });
 
-//listen for requests
-app.listen(8080, () => {
-    console.log('Your app is listening on port 8080.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+    console.log('Listening on Port ' +port);
   });
