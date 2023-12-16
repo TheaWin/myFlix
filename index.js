@@ -58,7 +58,7 @@ app.use(morgan('combined', {stream: accessLogStream}));
 app.post('/users', 
     //Validation logic here for request
     [
-        check('username', 'Username is required').isLength({min:5}), //min value of 5 chars are only allowed
+        check('username', 'Username is required and must be at least 5 characters').isLength({min:5}), //min value of 5 chars are only allowed
         check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
         check('password', 'Password is required').not().isEmpty(),//using a chain of methods `.not().isEmpty()` meanis "opposite of isEmpty" in plain english "is not empty"
         check('email', 'Email does not appear to be valid').isEmail()
@@ -112,18 +112,31 @@ app.get('/users/:username', passport.authenticate('jwt', {session: false}), asyn
 });
 
 //Update a user's info, by username - after database
-app.put('/users/:username', passport.authenticate('jwt', {session: false}), async (req,res) => {
+app.put('/users/:username', passport.authenticate('jwt', {session: false}), 
+    //Validation logic here for request
+    [
+        check('username', 'Username is required and must be at least 5 characters').isLength({min:5}), //min value of 5 chars are only allowed
+        check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric()
+    ], async (req,res) => {
     //CONDITION TO CHECK USER AUTHORIZATION
     if(req.user.username !== req.params.username) {
         return res.status(400).send('Permission denied');
     }
 
+    //check the validation object for errors
+    let errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(422).json({errors:errors.array()});
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.password);
     await Users.findOneAndUpdate({ username: req.params.username}, 
         {$set: 
         {
             username: req.body.username,
             name: req.body.name,
-            password: req.body.password,
+            password: hashedPassword,
             email: req.body.email,
             birthday: req.body.birthday
         }
