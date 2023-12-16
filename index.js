@@ -14,7 +14,8 @@ const Users = Models.User;
 const {check,validationResult} = require('express-validator');
 
 //allows Mongoose to connect to the database
-mongoose.connect('mongodb://localhost:27017/anime', {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect('mongodb://localhost:27017/anime', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
 const cors = require('cors');
