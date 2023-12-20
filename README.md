@@ -3,7 +3,6 @@
     <p> The web application will provide users with access to information about different anime films, directors, and genres.
     </p>
     <p> Users will be able to sign up, update their  personal information, and create a list of their favorite animes.</p>
-    <hr>
     <h2>Design Criteria</h2>
     <h4>Essential Features</h4>
     <ul>
