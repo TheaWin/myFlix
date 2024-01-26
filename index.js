@@ -120,14 +120,29 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}),
         check('name','Name is required'),
         check('password', 'Password is required'),
         check('email','Email does not appear to be valid').isEmail()
-    ], async (req,res) => {
+    ], (req,res) => {
     //CONDITION TO CHECK USER AUTHORIZATION
-    /* if(req.user.username !== req.params.username) {
+    if(req.user.username !== req.params.username) {
         return res.status(400).send('Permission denied');
-    } */
+    }
+
+    let hashPassword = Users.hashPassword(req.body.password);
+    Users.findOneAndUpdate(
+    {username: req.params.username},
+    {$set: {
+        username: req.body.username,
+        name: req.body.name,
+        password: hashPassword,
+        email: req.body.email,
+        birthday: req.body.birthday
+    }},{new: true}).then((updatedUser) => {
+      res.json(updatedUser)}).catch((err) => {
+      console.error(err);
+      res.status(500).send('Error ' + err)
+    })
 
     //check the validation object for errors
-    let errors = validationResult(req);
+    /* let errors = validationResult(req);
 
     if(!errors.isEmpty()) {
         return res.status(422).json({errors:errors.array()});
@@ -159,7 +174,7 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}),
     .catch ((err) => {
         console.error(err); 
         res.status(500).send('Error: ' + err);
-    })
+    }) */
 });
 
 //Add an anime to a user's list of favorites
