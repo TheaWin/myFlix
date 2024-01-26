@@ -136,7 +136,7 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}),
     // let hashedPassword = Users.hashPassword(req.body.password);
 
     let hashedPassword = req.body.password //check if there is `password` property in the request body
-        ? Users.hashPassword(req.body.Password) //true: new password will be hashed
+        ? Users.hashPassword(req.body.password) //true: new password will be hashed
         : Users.findOne({username: req.params.username}).password; //false: retrieve the hashed password from the specified existing user
 
     let userData = Users.findOne({username: req.params.username})
