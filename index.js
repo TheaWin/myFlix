@@ -127,24 +127,32 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}),
             return res.status(400).send('Permission denied');
         }
 
-        let hashPassword = Users.hashPassword(req.body.password);
+     //check the validation object for errors
+        let errors = validationResult(req);
 
-        await Users.findOneAndUpdate(
-            {username: req.params.username},
-            {$set: {
-                username: req.body.username,
-                name: req.body.name,
-                password: hashPassword,
-                email: req.body.email,
-                birthday: req.body.birthday
-            }},
-            {new: true})
-            .then((updatedUser) => {
-                res.json(updatedUser)})
-            .catch((err) => {
-                console.error(err);
-                res.status(500).send('Error ' + err)
-            })
+        if(!errors.isEmpty()) {
+            return res.status(422).json({errors:errors.array()});
+        }
+
+        let hashedPassword = Users.hashPassword(req.body.password);
+    await Users.findOneAndUpdate({ username: req.params.username}, 
+        {$set: 
+        {
+            username: req.body.username,
+            name: req.body.name,
+            password: hashedPassword,
+            email: req.body.email,
+            birthday: req.body.birthday
+        }
+        },
+        { new: true} ) //This line makes sure that the updated document is returned
+        .then ((updatedUser) => {
+            res.json(updatedUser);
+        })
+        .catch ((err) => {
+            console.error(err); 
+            res.status(500).send('Error: ' + err);
+        })
 
     //check the validation object for errors
     /* let errors = validationResult(req);
