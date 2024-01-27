@@ -116,25 +116,21 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}),
     //Validation logic here for request
     [
         check('username', 'Username is required and must be at least 5 characters').isLength({min:5}), //min value of 5 chars are only allowed
-        check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-        check('name','Name is required'),
-        check('password', 'Password is required'),
-        check('email','Email does not appear to be valid').isEmail()
-    ],
-    async (req,res) => {
+        check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric()
+    ], async (req,res) => {
     //CONDITION TO CHECK USER AUTHORIZATION
-        if(req.user.username !== req.params.username) {
-            return res.status(400).send('Permission denied');
-        }
+    if(req.user.username !== req.params.username) {
+        return res.status(400).send('Permission denied');
+    }
 
-     //check the validation object for errors
-        let errors = validationResult(req);
+    //check the validation object for errors
+    let errors = validationResult(req);
 
-        if(!errors.isEmpty()) {
-            return res.status(422).json({errors:errors.array()});
-        }
+    if(!errors.isEmpty()) {
+        return res.status(422).json({errors:errors.array()});
+    }
 
-        let hashedPassword = Users.hashPassword(req.body.password);
+    let hashedPassword = Users.hashPassword(req.body.password);
     await Users.findOneAndUpdate({ username: req.params.username}, 
         {$set: 
         {
@@ -144,41 +140,6 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}),
             email: req.body.email,
             birthday: req.body.birthday
         }
-        },
-        { new: true} ) //This line makes sure that the updated document is returned
-        .then ((updatedUser) => {
-            res.json(updatedUser);
-        })
-        .catch ((err) => {
-            console.error(err); 
-            res.status(500).send('Error: ' + err);
-        })
-
-    //check the validation object for errors
-    /* let errors = validationResult(req);
-
-    if(!errors.isEmpty()) {
-        return res.status(422).json({errors:errors.array()});
-    }
-
-    // let hashedPassword = Users.hashPassword(req.body.password);
-
-    let hashedPassword = req.body.password //check if there is `password` property in the request body
-        ? Users.hashPassword(req.body.password) //true: new password will be hashed
-        : Users.findOne({username: req.params.username}).password; //false: retrieve the hashed password from the specified existing user
-
-    let userData = Users.findOne({username: req.params.username})
-    
-    await Users.findOneAndUpdate({ username: req.params.username}, 
-        {$set: 
-            //update the database with new data if there is, else use existing data
-        {
-            username: req.body.username || userData.username,
-            name: req.body.name || userData.name,
-            password: hashedPassword,
-            email: req.body.email || userData.email,
-            birthday: req.body.birthday || userData.birthday
-        }
     },
     { new: true} ) //This line makes sure that the updated document is returned
     .then ((updatedUser) => {
@@ -187,7 +148,7 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}),
     .catch ((err) => {
         console.error(err); 
         res.status(500).send('Error: ' + err);
-    }) */
+    })
 });
 
 //Add an anime to a user's list of favorites
