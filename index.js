@@ -118,6 +118,11 @@ app.put('/users/:username', passport.authenticate('jwt', {session: false}),
         check('username', 'Username is required and must be at least 5 characters').isLength({min:5}), //min value of 5 chars are only allowed
         check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric()
     ], async (req,res) => {
+
+    //for debugging
+    console.log('Authenticated User:', req.user);
+    console.log('Request Params:', req.params);
+    
     //CONDITION TO CHECK USER AUTHORIZATION
     if(req.user.username !== req.params.username) {
         return res.status(400).send('Permission denied');
