@@ -229,8 +229,7 @@ app.get('/', (req, res) => {
 });
 
 //Return a list of ALL anime to the user
-//, passport.authenticate('jwt', {session: false}) [temporarily removed]
-app.get('/anime', async (req, res) => {
+app.get('/anime', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Anime.find()
     .then ((anime) => {
         res.status(201).json(anime);
