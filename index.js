@@ -23,10 +23,10 @@ const app = express();
 const cors = require('cors');
 
 //allow requests from all origins
-app.use(cors());
+// app.use(cors());
 
 //allow only specified origins to be given access
-/* let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com','http://localhost:1234','https://anime-eiga.netlify.app'];
 app.use (cors({
     origin: (origin,callback) => {
         if(!origin) return callback (null,true);
@@ -36,7 +36,7 @@ app.use (cors({
         }
         return callback(null,true);
     }
-})); */
+}));
 
 
 app.use(express.json());
