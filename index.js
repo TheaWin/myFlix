@@ -256,7 +256,7 @@ app.get('/anime/:name', passport.authenticate('jwt', {session: false}), async (r
 app.get('/anime/genre/:name', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Anime.findOne({"Genre.Name": req.params.name})
     .then((anime) => {
-        res.json(anime);
+        res.status(200).json(anime.Genre);
     })
     .catch((err) => {
         console.error(err);
@@ -268,7 +268,7 @@ app.get('/anime/genre/:name', passport.authenticate('jwt', {session: false}), as
 app.get('/anime/director/:name', passport.authenticate('jwt', {session: false}), async (req,res) => {
     await Anime.findOne({"Director.Name": req.params.name})
     .then((anime) => {
-        res.json(anime);
+        res.status(200).json(anime.Director);
     })
     .catch((err) => {
         console.error(err);
