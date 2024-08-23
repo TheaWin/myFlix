@@ -26,7 +26,7 @@ const cors = require('cors');
 // app.use(cors());
 
 //allow only specified origins to be given access
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com','http://localhost:1234','https://anime-eiga.netlify.app','https://theawin.github.io'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com','http://localhost:1234','https://anime-eiga.netlify.app','https://theawin.github.io','https://theawin.github.io/animeEiga-Angular-client'];
 app.use (cors({
     origin: (origin,callback) => {
         if(!origin) return callback (null,true);
