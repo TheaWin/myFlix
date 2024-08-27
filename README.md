@@ -70,3 +70,7 @@ git clone https://github.com/TheaWin/anime-eiga/git
 - **Add an anime to the user's list of favorites:** `POST /users/[username]/[name]`
 - **Remove an anime from the user's list of favorites:** `DELETE /users/[username]/[name]`
 - **User deregistration:** `DELETE /users/[username]`
+
+## Contact
+
+Thea Win - [mstheawin@gmail.com](mailto:mstheawin@gmail.com)
