@@ -63,10 +63,10 @@ git clone https://github.com/TheaWin/anime-eiga/git
 ### [Additional Endpoints](https://anime-eiga-84a0980bd564.herokuapp.com/documentation.html)
 - **User Login:** `POST /login`
 - **Return a list of ALL animes to the user:** `GET /anime`
-- **Return data about a single anime by title:** `GET /anime/[title]`
+- **Return data about a single anime by title:** `GET /anime/[name]`
 - **Return data of a list of animes by genre:** `GET /anime/genre/[genreName]`
 - **Return data about a director by name:** `GET /anime/directors/[directorName]`
 - **Update username info:** `PUT /users/[username]`
 - **Add an anime to the user's list of favorites:** `POST /users/[username]/[name]`
-- **Remove an anime from the user's list of favorites:** `DELETE /users/[username]/[title]`
+- **Remove an anime from the user's list of favorites:** `DELETE /users/[username]/[name]`
 - **User deregistration:** `DELETE /users/[username]`
