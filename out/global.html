@@ -1,0 +1,2897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Global</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Global</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2></h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="addFavoriteMovie"><span class="type-signature"></span>addFavoriteMovie<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {object|object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Add an anime to user's favorite movie list
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user's username and movie ID as URL parameters and a valid JWT Token</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object/error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line272">line 272</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The user object with updated user's favoriteMovie list.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    404 - Error message if username is wrong.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL request: POST http://localhost:8080/users/:username/:animeID</code></pre>
+
+    <pre class="prettyprint"><code>// Example response{ "username": "test123", "name": "John Doe", "password": "$2b$10$hRYMpgJ.uLIPbgTX72plZeuCeEzK5sIxDAt8ez2nqhHZ.t78EoOmO", "email": "test@gmail.com", "birthday": "2008-08-08T00:00:00.000Z", "favoriteMovies": ["66c7599ca9450e58b0b7f24c"], "_id": "66cd6638cc1745afe19c0ca7", "__v": 0 }</code></pre>
+
+    <pre class="prettyprint"><code>// Example error response{ "message": "Permission denied"}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="deleteFavoriteMovie"><span class="type-signature"></span>deleteFavoriteMovie<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {object|object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Removes an anime from user's favorite movie list
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user's username and movie ID as URL parameters and a valid JWT Token</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object/error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line330">line 330</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The user object with updated user's favoriteMovie list.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    404 - Error message if username is wrong.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL request: DELETE http://localhost:8080/users/:username/:animeID</code></pre>
+
+    <pre class="prettyprint"><code>// Example response{ "username": "test123", "name": "John Doe", "password": "$2b$10$hRYMpgJ.uLIPbgTX72plZeuCeEzK5sIxDAt8ez2nqhHZ.t78EoOmO", "email": "test@gmail.com", "birthday": "2008-08-08T00:00:00.000Z", "favoriteMovies": [], "_id": "66cd6638cc1745afe19c0ca7", "__v": 0 }</code></pre>
+
+    <pre class="prettyprint"><code>// Example error response{ "message": "Permission denied"}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="deleteUser"><span class="type-signature"></span>deleteUser<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {object|object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Delete a user by their username
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user's username as URL parameters and a valid JWT Token</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object/error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line388">line 388</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - A message indicating the delete was successful.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    404 - Error message if username is wrong.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL request: DELETE http://localhost:8080/users/:username</code></pre>
+
+    <pre class="prettyprint"><code>// Example response{"message": "User123 was deleted."}</code></pre>
+
+    <pre class="prettyprint"><code>// Example error response{ "message": "User123 was not found."}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="editUser"><span class="type-signature"></span>editUser<span class="signature">(res)</span><span class="type-signature"> &rarr; {object|object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Update user details by username
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The username of the user to update and a valid JWT Token</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object/error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line197">line 197</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The user object if found.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    400 - Error message if update fails.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL request: PUT http://localhost:8080/users/:username</code></pre>
+
+    <pre class="prettyprint"><code>/ Example response{ "username": "test123", "name": "John Doe", "password": "$2b$10$hRYMpgJ.uLIPbgTX72plZeuCeEzK5sIxDAt8ez2nqhHZ.t78EoOmO", "email": "test@gmail.com", "birthday": "2008-08-08T00:00:00.000Z", "favoriteMovies": [], "_id": "66cd6638cc1745afe19c0ca7", "__v": 0 }</code></pre>
+
+    <pre class="prettyprint"><code>// Example error response{ "message": "Permission denied"}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getAllMovies"><span class="type-signature"></span>getAllMovies<span class="signature">(req)</span><span class="type-signature"> &rarr; {Array.&lt;object>|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Return a list of all anime from the database
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Valid JWT Token</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line450">line 450</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - An array of anime objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;object></span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL request:GET http://localhost:8080/anime// Example response:[ {   "_id": "66c7599ca9450e58b0b7f24c",   "Name": "The Garden of Words",,   "Description": "A unique connection forms between a high school student and a mysterious woman in a garden.",   "releaseYear": 2013,   "imageURL": "https://m.media-amazon.com/images/I/819XDfizEaL._AC_SY741_.jpg",   "Featured": false,   "Director": {     "Name": "Makoto Shinkai",     "Birth": "1973-02-09T00:00:00.000Z",     "Bio": "Makoto Shinkai is a Japanese animator, filmmaker, and writer known for his visually stunning and emotionally compelling animated films.",     "Death": "null"   },   "Genre": {     "Name": "Romance",     "Description": "Romance genre focuses on the emotional relationship between characters, often featuring themes of love, attraction, and personal growth. Stories typically explore the journey of romantic relationships and their impact on the characters' lives."   } }, ...]</code></pre>
+
+    <pre class="prettyprint"><code>// Example error response{ "message": "Error: &lt;error_message>"}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getGenre"><span class="type-signature"></span>getGenre<span class="signature">(res)</span><span class="type-signature"> &rarr; {object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get genre details by name
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The genre name as URL parameters and a valid JWT Token</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object/error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line554">line 554</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The genre object if found.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL requestGET http://localhost:8080/anime/genre/:name</code></pre>
+
+    <pre class="prettyprint"><code>// Example response{ "Name": "Romance", "Description": "Romance genre focuses on the emotional relationship between characters, often featuring themes of love, attraction, and personal growth. Stories typically explore the journey of romantic relationships and their impact on the characters' lives."}</code></pre>
+
+    <pre class="prettyprint"><code>// Example error response{ "message": "Error: &lt;error_message>"}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getGenre"><span class="type-signature"></span>getGenre<span class="signature">(res)</span><span class="type-signature"> &rarr; {object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get director details by name
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The director name as URL parameters and a valid JWT Token</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object/error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line593">line 593</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The genre object if found.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL requestGET http://localhost:8080/anime/director/:name</code></pre>
+
+    <pre class="prettyprint"><code>// Example response{ "Name": "Makoto Shinkai", "Birth": "1973-02-09T00:00:00.000Z", "Bio": "Makoto Shinkai is a Japanese animator, filmmaker, and writer known for his visually stunning and emotionally compelling animated films.", "Death": "null"}</code></pre>
+
+    <pre class="prettyprint"><code>// Example error response{ "message": "Error: &lt;error_message>"}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getOneMovie"><span class="type-signature"></span>getOneMovie<span class="signature">(req)</span><span class="type-signature"> &rarr; {object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Return a list of all anime from the database
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The movie ID as URL parameters and a valid JWT Token</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line504">line 504</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The movie object if found
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL request:GET http://localhost:8080/anime/:name// Example response:{ "_id": "66c7599ca9450e58b0b7f24c", "Name": "The Garden of Words", "Description": "A unique connection forms between a high school student and a mysterious woman in a garden.", "releaseYear": 2013, "imageURL": "https://m.media-amazon.com/images/I/819XDfizEaL._AC_SY741_.jpg", "Featured": false, "Director": {   "Name": "Makoto Shinkai",   "Birth": "1973-02-09T00:00:00.000Z",   "Bio": "Makoto Shinkai is a Japanese animator, filmmaker, and writer known for his visually stunning and emotionally compelling animated films.",   "Death": "null" }, "Genre": {   "Name": "Romance",   "Description": "Romance genre focuses on the emotional relationship between characters, often featuring themes of love, attraction, and personal growth. Stories typically explore the journey of romantic relationships and their impact on the characters' lives." }</code></pre>
+
+    <pre class="prettyprint"><code>// Example error response{ "message": "Error: &lt;error_message>"}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getRoot"><span class="type-signature"></span>getRoot<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Handles the root endpoint with a welcome message.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">express.Request</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The request object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">express.Response</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line436">line 436</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    200 - A plain text welcome message is send to the client
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getUser"><span class="type-signature"></span>getUser<span class="signature">(res)</span><span class="type-signature"> &rarr; {object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Get user details by username.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The username of the user to retrieve and a valid JWT Token</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object/error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line152">line 152</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The user object if found.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL request:POST http://localhost:8080/users/:username</code></pre>
+
+    <pre class="prettyprint"><code>/ Example response{ "username": "test123", "name": "John Doe", "password": "$2b$10$hRYMpgJ.uLIPbgTX72plZeuCeEzK5sIxDAt8ez2nqhHZ.t78EoOmO", "email": "test@gmail.com", "birthday": "2008-08-08T00:00:00.000Z", "favoriteMovies": [], "_id": "66cd6638cc1745afe19c0ca7", "__v": 0 }</code></pre>
+
+    <pre class="prettyprint"><code>// Example error response{ "message": "Error: &lt;error_message>"}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="login"><span class="type-signature"></span>login<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {object|object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    User login
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The request body containing user credentials.
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The username of the user trying to log in.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The password of the user trying to log in.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object/error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="auth.js.html">auth.js</a>, <a href="auth.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The user object and JWT token if login is successful.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    400 - Error message if login fails.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL request:GET http://localhost:8080/login</code></pre>
+
+    <pre class="prettyprint"><code>// Example request{ "username": "user123", "password": 'pass123"}</code></pre>
+
+    <pre class="prettyprint"><code>// Example response{{ "user": {   "_id": "66cd4597cc1745afe19c0c9a",   "username": "user123",   "name": "John Doe",   "password": "$2b$10$eB4FcL5yFz5LEgFQu0UGHOHWFqlGMuVuFISIwBSkokDnpnCF79e8S",   "email": "test@gmail.com",   "birthday": "2000-08-08T00:00:00.000Z",   "favoriteMovies": [],   "__v": 0 }, "token": "eyJhbGciOiJIUzI1NiIsInR5cC..." }</code></pre>
+
+    <pre class="prettyprint"><code>//Example error response{ "message": "Something is not right", "user": null}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="userRegistration"><span class="type-signature"></span>userRegistration<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {object|Error}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    User Sign up
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The request body containing user details.
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The username of the user.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The name of the user.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The password of the user.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The email of the user.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>birthday</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The birthday of the user.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object/error</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Returns</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    200 - The user object if signup is successful.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+</li>
+    
+        <li>
+<div class="param-desc">
+    500 - Internal Server Error
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Error</span>
+
+
+    </dd>
+</dl>
+</li>
+    </ul>
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example URL request:POST http://localhost:8080/users</code></pre>
+
+    <pre class="prettyprint"><code>// Example request{ "username": "test123", "name": "John Doe", "password": "test123", "email": "test@gmail.com", "birthday": "2008-08-08"}</code></pre>
+
+    <pre class="prettyprint"><code>//Example response{ "username": "test123", "name": "John Doe", "password": "$2b$10$hRYMpgJ.uLIPbgTX72plZeuCeEzK5sIxDAt8ez2nqhHZ.t78EoOmO", "email": "test@gmail.com", "birthday": "2008-08-08T00:00:00.000Z", "favoriteMovies": [], "_id": "66cd6638cc1745afe19c0ca7", "__v": 0 }// Example error response{ "message": "Error: &lt;error_message>"}</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addFavoriteMovie">addFavoriteMovie</a></li><li><a href="global.html#deleteFavoriteMovie">deleteFavoriteMovie</a></li><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#editUser">editUser</a></li><li><a href="global.html#getAllMovies">getAllMovies</a></li><li><a href="global.html#getGenre">getGenre</a></li><li><a href="global.html#getOneMovie">getOneMovie</a></li><li><a href="global.html#getRoot">getRoot</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#userRegistration">userRegistration</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Aug 27 2024 11:14:55 GMT+0400 (Gulf Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
