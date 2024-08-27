@@ -6,7 +6,7 @@ Welcome to the Anime Films web application! This project focuses on building the
 
 ## Features
 
-- **Anime Film Information:** Access a rich database of anime films with details about their descriptions, genres, directors, and whether they are featured.
+- **Anime Film Information:** Access a database of anime films with details about their descriptions, genres, directors, and whether they are featured.
 - **Genre and Director Details:** Retrieve information about specific genres and directors.
 - **User Authentication:** Users can sign up, log in, and manage their accounts securely.
 - **Profile Management:** Users can update their personal information, including name, email, and date of birth.
@@ -24,6 +24,13 @@ Welcome to the Anime Films web application! This project focuses on building the
 - **Deployment:** Heroku for hosting and deploying the application.
 - **Source Control:** API source code is deployed to a publicly accessible platform like GitHub.
 - **Development:** Includes data validation logic, adheres to REST architecture, provides anime information in JSON format, and ensures error-free JavaScript code.
+- **Documentation:** JSDoc used for documentation.
+
+## Cloning Repository
+Open your terminal and run the following.
+```
+git clone https://github.com/TheaWin/anime-eiga/git
+```
 
 ## API Endpoints
 
@@ -53,7 +60,7 @@ Welcome to the Anime Films web application! This project focuses on building the
 
 ![New User Response](images/new-user-response.png)
 
-### Additional Endpoints
+### [Additional Endpoints](https://anime-eiga-84a0980bd564.herokuapp.com/documentation.html)
 - **User Login:** `POST /login`
 - **Return a list of ALL animes to the user:** `GET /anime`
 - **Return data about a single anime by title:** `GET /anime/[title]`
