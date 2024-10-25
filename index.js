@@ -23,20 +23,20 @@ const app = express();
 const cors = require('cors');
 
 //allow requests from all origins
-// app.use(cors());
+app.use(cors());
 
 //allow only specified origins to be given access
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com','http://localhost:1234','https://anime-eiga.netlify.app','https://theawin.github.io','http://localhost:4200'];
-app.use (cors({
-  origin: (origin,callback) => {
-    if(!origin) return callback (null,true);
-    if(allowedOrigins.indexOf(origin) === -1) { //if a specific origin isn't found on the list of allowed origins
-      let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null,true);
-  }
-}));
+// let allowedOrigins = ['http://localhost:8080', 'http://testsite.com','http://localhost:1234','https://anime-eiga.netlify.app','https://theawin.github.io','http://localhost:4200'];
+// app.use (cors({
+//   origin: (origin,callback) => {
+//     if(!origin) return callback (null,true);
+//     if(allowedOrigins.indexOf(origin) === -1) { //if a specific origin isn't found on the list of allowed origins
+//       let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+//       return callback(new Error(message ), false);
+//     }
+//     return callback(null,true);
+//   }
+// }));
 
 
 app.use(express.json());
@@ -56,6 +56,65 @@ require('./passport');
 a ‘log.txt’ file is created in root directory */
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {flags: 'a'});
 app.use(morgan('combined', {stream: accessLogStream}));
+
+// Import AWS SDK and Multer
+const AWS = require('aws-sdk');
+const multer = require('multer');
+//configure AWS SDK
+AWS.config.update({region: process.env.AWS_REGION});
+const S3 = new AWS.S3();
+//Configure multer for hanlding file uploads
+const storage = multer.memoryStorage();
+const upload = multer({storage:storage});
+
+const BUCKET_NAME = process.env.S3_BUCKET;
+// Upload image
+app.post('/upload-image', upload.single('image'), async(req,res) => {
+  try {
+    const file = req.file;
+
+    if(!file) {
+      return res.status(400).json({message: 'No file uploaded'});
+    }
+
+    console.log('S3 Bucket Name', BUCKET_NAME);
+
+    await S3.putObject({
+      Bucket: BUCKET_NAME,
+      Key: `original-image/${file.originalname}`,
+      Body: file.buffer,
+      ContentType: file.mimetype
+    }).promise();
+
+    res.status(200).json({ message: 'Image uploaded successfully' });
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).json({ message: 'Error uploading image' });
+  }
+});
+
+// Get All Images
+app.get('/images', async(req,res) => {
+  try{
+    const listObjects = async(prefix) => {
+      const params = {
+        Bucket: BUCKET_NAME,
+        Prefix: prefix
+      };
+
+      const data = await S3.listObjectsV2(params).promise();
+      return data.Contents.map(item => `https://${BUCKET_NAME}.s3.us-east-1.amazonaws.com/${item.Key}`);
+    };
+
+    const originalImages = await listObjects('original-image/');
+    const resizedImages = await listObjects('resized-image/');
+
+    res.status(200).send({originalImages, resizedImages});
+  } catch(error) {
+    console.error('Error listing images: ', error);
+    res.status(500).send('Error listing images.');
+  }
+});
 
 /**
  * User Sign up
