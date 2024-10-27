@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express'),
   morgan = require('morgan'),
   fs = require('fs'),
@@ -103,6 +104,8 @@ app.get('/images', async(req,res) => {
       };
 
       const data = await S3.listObjectsV2(params).promise();
+      data.Contents.forEach(item=>console.log('Found item key: ', item.Key));
+      console.log(`Bucket name: ${BUCKET_NAME}`);
       return data.Contents.map(item => `https://${BUCKET_NAME}.s3.us-east-1.amazonaws.com/${item.Key}`);
     };
 
